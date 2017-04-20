@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Thu Apr 20 20:19:16 2017 romain pillot
+** Last update Thu Apr 20 22:26:52 2017 Raphaël Goulmot
 */
 
 #ifndef LEMIN_H_
@@ -41,5 +41,7 @@ typedef struct	s_data
   t_list	*crossers;
   t_list	*paths;
 }		t_data;
+
+void	launch_lemin(t_data *world);
 
 #endif /* !LEMIN_H_ */
