@@ -5,13 +5,16 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Thu Apr 20 22:40:26 2017 Raphaël Goulmot
+** Last update Thu Apr 20 21:07:49 2017 romain pillot
 */
 
 #ifndef LEMIN_H_
 # define LEMIN_H_
 
+# define EXIT_FAIL	(84)
+
 # include "list.h"
+# include <stdbool.h>
 
 typedef struct  s_node
 {
@@ -42,6 +45,8 @@ typedef struct	s_data
   t_list	*crossers;
   t_list	*paths;
 }		t_data;
+
+bool	load_data(t_data *data, int fd);
 
 void	launch_lemin(t_data *world);
 

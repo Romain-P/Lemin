@@ -5,12 +5,14 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Thu Apr 20 20:20:21 2017 romain pillot
+** Last update Thu Apr 20 21:28:01 2017 romain pillot
 */
 
 #include <stdlib.h>
 #include "util.h"
 #include "lemin.h"
+#include <fcntl.h>
+#include <unistd.h>
 
 static t_data	*initialize()
 {
@@ -26,13 +28,24 @@ static t_data	*initialize()
   return (data);
 }
 
-static void	free_data(t_data *data)
+static void	free_data(t_data *data, int fd)
+{
+  list_removeall(data->crossers, true);
+  free(data->nodes);
+  free(data->crossers);
+  free(data->paths);
+  if (fd != 0)
+    close(fd);
+  free(data);
+}
+
+static int	free_all(t_data *data, int fd, int status)
 {
   t_elem	*elem;
   t_elem	*hold;
   t_node	*node;
 
-  elem = data->nodes->first;
+  elem = data->nodes ? data->nodes->first : NULL;
   while (elem)
     {
       safe_free(((t_node *) elem->get)->name);
@@ -42,8 +55,7 @@ static void	free_data(t_data *data)
       elem = elem->next;
       free(hold);
     }
-  list_removeall(data->crossers, true);
-  elem = data->paths->first;
+  elem = data->paths ? data->paths->first : NULL;
   while (elem)
     {
       free(((t_path *) elem->get)->nodes);
@@ -52,15 +64,27 @@ static void	free_data(t_data *data)
       elem = elem->next;
       free(hold);
     }
+  free_data(data, fd);
+  return (status);
 }
 
-int		main()
+/* bonus: read a file passed as argument */
+static int	get_file(char **args, int *file)
+{
+  *file = 0;
+  if (args[1] && (*file = open(args[1], O_RDONLY)) == -1)
+    fdisplay_format("%s: can't open the file '%s'\n", args[0], args[1]);
+  return (*file == -1 ? (*file = 0) : *file);
+}
+
+int		main(int ac, char **args)
 {
   t_data	*data;
+  int		fd;
 
-  if (!(data = initialize()))
-    return (84);
-  
-  free_data(data);
-  return (0);
+  if (!(data = initialize()) ||
+      !load_data(data, get_file(args, &fd)))
+    return (free_all(data, fd, EXIT_FAIL));
+  launch_lemin(data);
+  return (free_all(data, fd, EXIT_SUCCESS));
 }
