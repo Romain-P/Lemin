@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Thu Apr 20 18:45:38 2017 romain pillot
+** Last update Thu Apr 20 20:19:16 2017 romain pillot
 */
 
 #ifndef LEMIN_H_
@@ -18,12 +18,12 @@ typedef struct  s_node
   char          *name;
   int           posx;
   int           posy;
-  t_list        nodes;
+  t_list        *nodes;
 }               t_node;
 
 typedef struct	s_path
 {
-  s_node	**nodes;
+  t_node	**nodes;
   int		size;
 }		t_path;
 
@@ -37,6 +37,7 @@ typedef struct	s_data
 {
   t_node	*start;
   t_node	*end;
+  t_list	*nodes;
   t_list	*crossers;
   t_list	*paths;
 }		t_data;
