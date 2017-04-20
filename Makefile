@@ -5,7 +5,7 @@
 ## Login   <romain.pillot@epitech.net>
 ## 
 ## Started on  Sat Oct 29 17:09:21 2016 romain pillot
-## Last update Thu Apr 20 17:13:31 2017 romain pillot
+## Last update Thu Apr 20 19:05:24 2017 romain pillot
 ##
 
 CC	=	gcc
@@ -15,6 +15,7 @@ NAME	=	lem_in
 RM	=	rm -f
 
 SRCS	=	src/main.c			\
+		src/util/list.c			\
 		src/util/nbr_util.c		\
 		src/util/out_util.c		\
 		src/util/scanner.c		\
