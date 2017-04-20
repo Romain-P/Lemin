@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Thu Apr 20 22:26:52 2017 Raphaël Goulmot
+** Last update Thu Apr 20 22:40:26 2017 Raphaël Goulmot
 */
 
 #ifndef LEMIN_H_
@@ -29,6 +29,7 @@ typedef struct	s_path
 
 typedef struct	s_crosser
 {
+  int		id;
   t_path	*path;
   int		step;
 }		t_crosser;
