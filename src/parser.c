@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Fri Apr 21 10:50:42 2017 romain pillot
+** Last update Fri Apr 21 10:56:18 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -59,7 +59,7 @@ bool	load_data(t_data *data, int fd)
       if ((data->crossers->size || !build_crossers(data, str)) &&
 	  !build_node(data, str, node_type) && !build_link(data, str))
 	{
-	  fdisplay_format("notice: '%s' stoppes the parsing.\n", str);
+	  fdisplay_format("notice: '%s' stopped the parsing.\n", str);
 	  free(str);
 	  break;
 	}
