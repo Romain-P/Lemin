@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Fri Apr 21 08:45:29 2017 romain pillot
+** Last update Fri Apr 21 12:58:06 2017 Raphaël Goulmot
 */
 
 #include "util.h"
@@ -50,6 +50,7 @@ static void	init_path(t_crosser *crosser, t_data *world)
     {
       if (possible_path((t_path *) elem->get, world))
 	{
+	  display_format("Ant: %d Asssign", crosser->id);
 	  crosser->path = (t_path *) elem->get;
 	  crosser->step = 1;
 	  return;
@@ -79,8 +80,9 @@ static char	end_crossers(t_data *world)
   elem = world->crossers->first;
   while (elem)
     {
-      if (!(crosser = (t_crosser *) elem->get)
-	  || crosser->path->nodes[crosser->step] != world->end)
+      if (!(crosser = (t_crosser *) elem->get))
+	break;
+      if (!crosser->path || crosser->path->nodes[crosser->step] != world->end)
 	return (0);
       elem = elem->next;
     }
