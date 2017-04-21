@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Fri Apr 21 07:13:45 2017 romain pillot
+** Last update Fri Apr 21 08:37:13 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -46,21 +46,20 @@ static int	free_all(t_data *data, int fd, int status)
   t_node	*node;
 
   elem = data->nodes ? data->nodes->first : NULL;
-  while (elem)
+  while ((hold = elem))
     {
       safe_free(((t_node *) elem->get)->label);
+      list_removeall(((t_node *) elem->get)->nodes, false);
       safe_free(((t_node *) elem->get)->nodes);
       safe_free((t_node *) elem->get);
-      hold = elem;
       elem = elem->next;
       safe_free(hold);
     }
   elem = data->paths ? data->paths->first : NULL;
-  while (elem)
+  while ((hold = elem))
     {
       safe_free(((t_path *) elem->get)->nodes);
       safe_free((t_path *) elem->get);
-      hold = elem;
       elem = elem->next;
       safe_free(hold);
     }
