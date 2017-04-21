@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Fri Apr 21 09:11:31 2017 romain pillot
+** Last update Fri Apr 21 10:45:41 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -79,14 +79,12 @@ bool	build_node(t_data *data, char *str, char node_type)
   safe_freesub(split, true);
   if (len < 3 || !label || !insert_node(data, label, posx, posy))
     {
-      len = len >= 3 && label;
       safe_free(label);
-      return (len);
+      return (false);
     }
-  if (node_type == NODE_START) {
+  if (node_type == NODE_START)
     data->start = (t_node *) data->nodes->last->get;
-    display("done", false);
-  }else if (node_type == NODE_END)
+  else if (node_type == NODE_END)
     data->end = (t_node *) data->nodes->last->get;
   return (true);
 }
@@ -129,7 +127,8 @@ bool		build_link(t_data *data, char *str)
       list_add(data->links, link);
       list_add(node_a->nodes, node_b);
       list_add(node_b->nodes, node_a);
+      len = -1;
     }
   safe_freesub(split, true);
-  return (len >= 2);
+  return (len == -1);
 }

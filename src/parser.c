@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Fri Apr 21 08:25:29 2017 romain pillot
+** Last update Fri Apr 21 10:50:42 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -19,9 +19,14 @@ static bool	valid_data(t_data *data)
   elem = data->nodes->first;
   while (elem)
     {
-      if (!((t_node *) elem->get)->nodes->size)
-	fdisplay_format("warning: node '%s' hasn't any link.\n",
-			((t_node *) elem->get)->label);
+      if (!((t_node *) elem->get)->nodes->size &&
+	  (equalstr(((t_node *) elem->get)->label, data->start->label)||
+	   equalstr(((t_node *) elem->get)->label, data->end->label)))
+	{
+	  fdisplay_format("error: starting/ending node '%s' hasn't any link.\n",
+			  ((t_node *) elem->get)->label);
+	  return (false);
+	}
       elem = elem->next;
     }
   if (!data->start || !data->end || !data->crossers->size)
@@ -40,22 +45,24 @@ bool	load_data(t_data *data, int fd)
 {
   char	*str;
   char	node_type;
-  bool	start;
 
   node_type = NODE_NORMAL;
   while ((str = scan_line(fd)))
     {
       if (start_withstr(str, "#"))
 	{
-	  if ((start = start_withstr(str, "##start")) ||
-	      start_withstr(str, "##end"))
-	    node_type = start ? NODE_START : NODE_END;
+	  node_type = start_withstr(str, "##start") ? NODE_START :
+	    start_withstr(str, "##end") ? NODE_END : NODE_NORMAL;
 	  free(str);
 	  continue;
 	}
       if ((data->crossers->size || !build_crossers(data, str)) &&
 	  !build_node(data, str, node_type) && !build_link(data, str))
-	fdisplay_format("warning: '%s' unknown parsing action.\n", str);
+	{
+	  fdisplay_format("notice: '%s' stoppes the parsing.\n", str);
+	  free(str);
+	  break;
+	}
       node_type = NODE_NORMAL;
       free(str);
     }
