@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Thu Apr 20 22:48:29 2017 Raphaël Goulmot
+** Last update Fri Apr 21 02:49:40 2017 romain pillot
 */
 
 #include "util.h"
@@ -104,7 +104,7 @@ void	launch_lemin(t_data *world)
 	    {
 	      crosser->step++;
 	      display_format("P%d-%s", crosser->id
-			     , crosser->path->nodes[crosser->step]->name);
+			     , crosser->path->nodes[crosser->step]->label);
 	    }
 	  elem = elem->next;
 	}

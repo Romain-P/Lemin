@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Thu Apr 20 21:28:01 2017 romain pillot
+** Last update Fri Apr 21 02:47:23 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -48,7 +48,7 @@ static int	free_all(t_data *data, int fd, int status)
   elem = data->nodes ? data->nodes->first : NULL;
   while (elem)
     {
-      safe_free(((t_node *) elem->get)->name);
+      safe_free(((t_node *) elem->get)->label);
       safe_free(((t_node *) elem->get)->nodes);
       safe_free((t_node *) elem->get);
       hold = elem;
