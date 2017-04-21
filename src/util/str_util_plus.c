@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Wed Mar 15 09:14:24 2017 romain pillot
-** Last update Tue Apr  4 21:30:57 2017 romain pillot
+** Last update Fri Apr 21 08:47:23 2017 romain pillot
 */
 
 #include "util.h"
@@ -34,11 +34,10 @@ char	*get_filename(char *str)
   return (str);
 }
 
-char	*copystr(unsigned char *from, int lenf,
+unsigned char	*copystr(unsigned char *from, int lenf,
 		 unsigned char *to, int index)
 {
-  int	len;
-  int	i;
+  int		i;
 
   i = 0;
   if (!from || !to || index < 0)

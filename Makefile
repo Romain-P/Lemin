@@ -20,7 +20,7 @@ SRCS	=	src/main.c			\
 
 OBJS	=	$(SRCS:.c=.o)
 
-CFLAGS	+=	-Iinc -g3 #-Werror -Wall -Wextra
+CFLAGS	+=	-Iinc -g3 -Werror -Wall -Wextra
 
 all:	$(NAME)
 

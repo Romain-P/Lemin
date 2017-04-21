@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Fri Apr 21 02:49:40 2017 romain pillot
+** Last update Fri Apr 21 08:45:29 2017 romain pillot
 */
 
 #include "util.h"
@@ -44,7 +44,6 @@ static char	possible_path(t_path *path, t_data *world)
 static void	init_path(t_crosser *crosser, t_data *world)
 {
   t_elem	*elem;
-  int		i;
 
   elem = world->paths->first;
   while (elem)

@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Mar  2 16:17:22 2017 romain pillot
-** Last update Thu Apr 20 17:14:22 2017 romain pillot
+** Last update Fri Apr 21 08:47:40 2017 romain pillot
 */
 
 #ifndef UTIL_H_
@@ -67,7 +67,7 @@ char	**filltab(char **tab, void *e, int size);
 
 char	*fillstr(char *ptr, char c, int size);
 
-char	*copystr(unsigned char *from, int flen,
+unsigned char	*copystr(unsigned char *from, int flen,
 		 unsigned char *to, int index);
 
 void	*memfill(void *ptr, int val, int bytes);

@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Fri Apr 21 08:37:13 2017 romain pillot
+** Last update Fri Apr 21 08:45:07 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -43,7 +43,6 @@ static int	free_all(t_data *data, int fd, int status)
 {
   t_elem	*elem;
   t_elem	*hold;
-  t_node	*node;
 
   elem = data->nodes ? data->nodes->first : NULL;
   while ((hold = elem))
@@ -81,6 +80,7 @@ int		main(int ac, char **args)
   t_data	*data;
   int		fd;
 
+  (void) ac;
   if (!(data = initialize()) ||
       !load_data(data, get_file(args, &fd)))
     return (free_all(data, fd, EXIT_FAIL));
