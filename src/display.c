@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Fri Apr 21 07:37:25 2017 romain pillot
-** Last update Fri Apr 21 09:16:13 2017 romain pillot
+** Last update Fri Apr 21 12:35:36 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -16,17 +16,16 @@ static void	display_nodes(t_data *data)
   t_elem	*elem;
   t_node	*node;
 
-  display_format("#rooms\n##start\n%s %d %d\n", data->start->label,
-		 data->start->posx, data->start->posy);
-  display_format("##end\n%s %d %d\n", data->end->label,
-		 data->end->posx, data->end->posy);
+  display("#rooms\n", false);
   elem = data->nodes->first;
   while (elem)
     {
       node = (t_node *) elem->get;
-      if (!equalstr(node->label, data->start->label) &&
-	  !equalstr(node->label, data->end->label))
-	display_format("%s %d %d\n", node->label, node->posx, node->posy);
+      if (equalstr(node->label, data->start->label))
+	display("##start\n", false);
+      else if (equalstr(node->label, data->end->label))
+	display("##end\n", false);
+      display_format("%s %d %d\n", node->label, node->posx, node->posy);
       elem = elem->next;
     }
 }
