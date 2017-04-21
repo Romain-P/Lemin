@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Fri Apr 21 08:45:07 2017 romain pillot
+** Last update Fri Apr 21 09:05:53 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -25,14 +25,17 @@ static t_data	*initialize()
   data->nodes = list_create();
   data->crossers = list_create();
   data->paths = list_create();
+  data->links = list_create();
   return (data);
 }
 
 static void	free_data(t_data *data, int fd)
 {
   list_removeall(data->crossers, true);
-  free(data->nodes);
   free(data->crossers);
+  list_removeall(data->links, true);
+  free(data->links);
+  free(data->nodes);
   free(data->paths);
   if (fd != 0)
     close(fd);
@@ -84,6 +87,7 @@ int		main(int ac, char **args)
   if (!(data = initialize()) ||
       !load_data(data, get_file(args, &fd)))
     return (free_all(data, fd, EXIT_FAIL));
+  display_data(data);
   //launch_lemin(data);
   return (free_all(data, fd, EXIT_SUCCESS));
 }

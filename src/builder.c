@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Fri Apr 21 08:17:43 2017 romain pillot
+** Last update Fri Apr 21 09:11:31 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -18,8 +18,8 @@ bool		build_crossers(t_data *data, char *str)
   t_crosser	*crosser;
   int		id;
 
-  if (!start_withstr(str, "Number of ants: ") ||
-      (crossers = getnbr(str + 16)) <= 0)
+  if (containstr(str, " ") || containstr(str, "-") ||
+      (crossers = getnbr(str)) <= 0)
     return (false);
   id = 0;
   while (crossers--)
@@ -83,10 +83,11 @@ bool	build_node(t_data *data, char *str, char node_type)
       safe_free(label);
       return (len);
     }
-  if (node_type == NODE_START)
-    data->start = (t_node *) data->nodes->last;
-  else if (node_type == NODE_END)
-    data->end = (t_node *) data->nodes->last;
+  if (node_type == NODE_START) {
+    data->start = (t_node *) data->nodes->last->get;
+    display("done", false);
+  }else if (node_type == NODE_END)
+    data->end = (t_node *) data->nodes->last->get;
   return (true);
 }
 
@@ -112,22 +113,23 @@ bool		build_link(t_data *data, char *str)
   t_node	*node_a;
   t_node	*node_b;
   int		len;
+  t_link	*link;
 
   split = splitstr(strdupl(str), '-');
-  if ((len = tab_length(split)) < 2 ||
-      !(node_a = find_node(data->nodes, split[0], true)) ||
-      !(node_b = find_node(data->nodes, split[1], true)))
-    {
-      safe_freesub(split, true);
-      return (len >= 2);
-    }
-  if (find_node(node_a->nodes, node_b->label, false))
+  len = tab_length(split);
+  node_a = len >= 2 ? find_node(data->nodes, split[0], true) : NULL;
+  node_b = len >= 2 ? find_node(data->nodes, split[1], true) : NULL;
+  if (len >= 2 && find_node(node_a->nodes, node_b->label, false))
     fdisplay_format("warning: ignored link '%s' (already built).\n", str);
-  else
+  else if (len >= 2)
     {
+      link = malloc(sizeof(t_link));
+      link->node_a = node_a;
+      link->node_b = node_b;
+      list_add(data->links, link);
       list_add(node_a->nodes, node_b);
       list_add(node_b->nodes, node_a);
     }
   safe_freesub(split, true);
-  return (true);
+  return (len >= 2);
 }

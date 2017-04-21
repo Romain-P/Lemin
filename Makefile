@@ -5,7 +5,7 @@
 ## Login   <romain.pillot@epitech.net>
 ## 
 ## Started on  Fri Apr 21 07:37:34 2017 romain pillot
-## Last update Fri Apr 21 07:37:36 2017 romain pillot
+## Last update Fri Apr 21 07:37:59 2017 romain pillot
 ##
 
 CC	=	gcc
@@ -18,6 +18,7 @@ SRCS	=	src/main.c			\
 		src/parser.c			\
 		src/builder.c			\
 		src/lemin.c			\
+		src/display.c			\
 		src/util/list.c			\
 		src/util/nbr_util.c		\
 		src/util/out_util.c		\
