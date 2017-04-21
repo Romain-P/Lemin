@@ -1,3 +1,13 @@
+##
+## Makefile for  in /home/romain.pillot/projects/CPE_2016_Lemin
+## 
+## Made by romain pillot
+## Login   <romain.pillot@epitech.net>
+## 
+## Started on  Fri Apr 21 07:37:34 2017 romain pillot
+## Last update Fri Apr 21 07:37:36 2017 romain pillot
+##
+
 CC	=	gcc
 
 NAME	=	lem_in
