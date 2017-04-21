@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Fri Apr 21 06:03:36 2017 romain pillot
+** Last update Fri Apr 21 08:25:29 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -24,7 +24,7 @@ static bool	valid_data(t_data *data)
 			((t_node *) elem->get)->label);
       elem = elem->next;
     }
-  if (!data->start || !data->end || !data->crossers)
+  if (!data->start || !data->end || !data->crossers->size)
     {
       display(!data->start ?
 	      "error: undefined starting node.\n" :

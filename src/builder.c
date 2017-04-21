@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Fri Apr 21 06:45:28 2017 romain pillot
+** Last update Fri Apr 21 08:17:43 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -79,53 +79,55 @@ bool	build_node(t_data *data, char *str, char node_type)
   safe_freesub(split, true);
   if (len < 3 || !label || !insert_node(data, label, posx, posy))
     {
+      len = len >= 3 && label;
       safe_free(label);
-      return (len > 3 && label);
+      return (len);
     }
-  if (node_type = NODE_START)
+  if (node_type == NODE_START)
     data->start = (t_node *) data->nodes->last;
-  else if (node_type = NODE_END)
+  else if (node_type == NODE_END)
     data->end = (t_node *) data->nodes->last;
   return (true);
 }
 
-static t_node	*find_node(t_data *data, char *label)
+static t_node	*find_node(t_list *list, char *label, bool err)
 {
   t_elem	*elem;
 
-  elem = data->nodes->first;
+  elem = list->first;
   while (elem)
     {
       if (equalstr(label, ((t_node *) elem->get)->label))
 	return ((t_node *) elem->get);
       elem = elem->next;
     }
-  fdisplay_format("warning: node '%s' does not exist.\n", label);
+  if (err)
+    fdisplay_format("warning: node '%s' does not exist.\n", label);
   return (NULL);
 }
 
 bool		build_link(t_data *data, char *str)
 {
   char		**split;
-  char		*label_a;
-  char		*label_b;
   t_node	*node_a;
   t_node	*node_b;
   int		len;
 
   split = splitstr(strdupl(str), '-');
-  if ((len = tab_length(split)) >= 2 &&
-      (label_a = strdupl(split[0])))
-    label_b = strdupl(split[1]);
-  safe_freesub(split, true);
-  if (len < 2 || !(node_a = find_node(data, label_a)) ||
-      !(node_b = find_node(data, label_b)))
+  if ((len = tab_length(split)) < 2 ||
+      !(node_a = find_node(data->nodes, split[0], true)) ||
+      !(node_b = find_node(data->nodes, split[1], true)))
     {
-      safe_free(label_a);
-      safe_free(label_b);
+      safe_freesub(split, true);
       return (len >= 2);
     }
-  list_add(node_a->nodes, node_b);
-  list_add(node_b->nodes, node_a);
+  if (find_node(node_a->nodes, node_b->label, false))
+    fdisplay_format("warning: ignored link '%s' (already built).\n", str);
+  else
+    {
+      list_add(node_a->nodes, node_b);
+      list_add(node_b->nodes, node_a);
+    }
+  safe_freesub(split, true);
   return (true);
 }

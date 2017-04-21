@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Fri Apr 21 02:56:29 2017 romain pillot
+** Last update Fri Apr 21 07:13:45 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -85,6 +85,6 @@ int		main(int ac, char **args)
   if (!(data = initialize()) ||
       !load_data(data, get_file(args, &fd)))
     return (free_all(data, fd, EXIT_FAIL));
-  launch_lemin(data);
+  //launch_lemin(data);
   return (free_all(data, fd, EXIT_SUCCESS));
 }
