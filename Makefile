@@ -6,7 +6,7 @@ RM	=	rm -f
 
 SRCS	=	src/main.c			\
 		src/parser.c			\
-		src/parser_state.c		\
+		src/builder.c			\
 		src/lemin.c			\
 		src/util/list.c			\
 		src/util/nbr_util.c		\

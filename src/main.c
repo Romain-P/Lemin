@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Fri Apr 21 02:47:23 2017 romain pillot
+** Last update Fri Apr 21 02:56:29 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -53,16 +53,16 @@ static int	free_all(t_data *data, int fd, int status)
       safe_free((t_node *) elem->get);
       hold = elem;
       elem = elem->next;
-      free(hold);
+      safe_free(hold);
     }
   elem = data->paths ? data->paths->first : NULL;
   while (elem)
     {
-      free(((t_path *) elem->get)->nodes);
-      free((t_path *) elem->get);
+      safe_free(((t_path *) elem->get)->nodes);
+      safe_free((t_path *) elem->get);
       hold = elem;
       elem = elem->next;
-      free(hold);
+      safe_free(hold);
     }
   free_data(data, fd);
   return (status);

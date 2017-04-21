@@ -5,50 +5,14 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Fri Apr 21 02:48:19 2017 romain pillot
+** Last update Fri Apr 21 06:03:36 2017 romain pillot
 */
 
 #include "lemin.h"
 #include "util.h"
 #include <stdlib.h>
 
-static bool	(* const states[])(t_data *data, char *str, t_state *state) =
-{
-  &state_crossers,
-  &state_start,
-  &state_nodes,
-  &state_end,
-  &state_links
-};
-
-static t_bool	ignore_line(t_data *data, char *str, t_state *state)
-{
-  if (start_withstr(str, "##start"))
-    {
-      if (*state == CROSSERS_NUMBER)
-	fdisplay_format("%s: error (expected a crosser number first)\n", str);
-      else if (data->start)
-	fdisplay_format("%s: ignored (starting node already defined)\n", str);
-      else
-	*state = START_NODE;
-      return (*state == CROSSERS_NUMBER ? ERROR : TRUE);
-    }
-  else if (start_withstr(str, "##end"))
-    {
-      if (*state == CROSSERS_NUMBER)
-	fdisplay_format("%s: error (expected a crosser number first)\n", str);
-      else if (data->end)
-	fdisplay_format("%s: ignored (ending node already defined)\n", str);
-      else
-	*state = END_NODE;
-      return (*state == CROSSERS_NUMBER ? ERROR : TRUE);
-    }
-  else if (start_withstr(str, "#"))
-    return (TRUE);
-  return (FALSE);
-}
-
-static void	show_warnings(t_data *data)
+static bool	valid_data(t_data *data)
 {
   t_elem	*elem;
 
@@ -56,37 +20,44 @@ static void	show_warnings(t_data *data)
   while (elem)
     {
       if (!((t_node *) elem->get)->nodes->size)
-	fdisplay_format("warning: node '%s' has not any link.\n",
+	fdisplay_format("warning: node '%s' hasn't any link.\n",
 			((t_node *) elem->get)->label);
       elem = elem->next;
     }
-}
-
-bool		load_data(t_data *data, int fd)
-{
-  char		*str;
-  t_state	state;
-  bool		valid;
-  t_bool	ignore;
-
-  state = CROSSERS_NUMBER;
-  while ((str = scan_line(fd)))
+  if (!data->start || !data->end || !data->crossers)
     {
-      if ((ignore = ignore_line(data, str, &state)) == FALSE)
-	valid = states[state](data, str, &state);
-      free(str);
-      if (ignore == ERROR || !valid)
-	return (false);
-    }
-  if (!data->start || !data->end || state != LINKS)
-    {
-      fdisplay_format(!data->start ?
-		      "error: undefined starting node.\n" :
-		      !data->end ?
-		      "error: undefined ending node.\n" :
-		      "error: expected valid input data");
+      display(!data->start ?
+	      "error: undefined starting node.\n" :
+	      !data->end ?
+	      "error: undefined ending node.\n" :
+	      "error: undefined crossers number.\n", true);
       return (false);
     }
-  show_warnings(data);
   return (true);
+}
+
+bool	load_data(t_data *data, int fd)
+{
+  char	*str;
+  char	node_type;
+  bool	start;
+
+  node_type = NODE_NORMAL;
+  while ((str = scan_line(fd)))
+    {
+      if (start_withstr(str, "#"))
+	{
+	  if ((start = start_withstr(str, "##start")) ||
+	      start_withstr(str, "##end"))
+	    node_type = start ? NODE_START : NODE_END;
+	  free(str);
+	  continue;
+	}
+      if ((data->crossers->size || !build_crossers(data, str)) &&
+	  !build_node(data, str, node_type) && !build_link(data, str))
+	fdisplay_format("warning: '%s' unknown parsing action.\n", str);
+      node_type = NODE_NORMAL;
+      free(str);
+    }
+  return (valid_data(data));
 }
