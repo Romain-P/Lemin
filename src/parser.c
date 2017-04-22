@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Fri Apr 21 13:36:38 2017 romain pillot
+** Last update Sat Apr 22 17:56:14 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -29,7 +29,9 @@ static bool	valid_data(t_data *data)
   else if (!data->end->nodes->size)
     fdisplay_format("error: ending node '%s' hasn't any link.\n",
 		    data->end->label);
-  return (true);
+  else
+    return (true);
+  return (false);
 }
 
 bool	load_data(t_data *data, int fd)
