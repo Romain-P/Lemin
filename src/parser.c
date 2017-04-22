@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Fri Apr 21 10:56:18 2017 romain pillot
+** Last update Fri Apr 21 13:36:38 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -14,21 +14,6 @@
 
 static bool	valid_data(t_data *data)
 {
-  t_elem	*elem;
-
-  elem = data->nodes->first;
-  while (elem)
-    {
-      if (!((t_node *) elem->get)->nodes->size &&
-	  (equalstr(((t_node *) elem->get)->label, data->start->label)||
-	   equalstr(((t_node *) elem->get)->label, data->end->label)))
-	{
-	  fdisplay_format("error: starting/ending node '%s' hasn't any link.\n",
-			  ((t_node *) elem->get)->label);
-	  return (false);
-	}
-      elem = elem->next;
-    }
   if (!data->start || !data->end || !data->crossers->size)
     {
       display(!data->start ?
@@ -38,6 +23,12 @@ static bool	valid_data(t_data *data)
 	      "error: undefined crossers number.\n", true);
       return (false);
     }
+  if (!data->start->nodes->size)
+    fdisplay_format("error: starting node '%s' hasn't any link.\n",
+		    data->start->label);
+  else if (!data->end->nodes->size)
+    fdisplay_format("error: ending node '%s' hasn't any link.\n",
+		    data->end->label);
   return (true);
 }
 
