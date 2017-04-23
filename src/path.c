@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Fri Apr 21 13:02:17 2017 romain pillot
-** Last update Sun Apr 23 14:18:39 2017 romain pillot
+** Last update Sun Apr 23 17:48:04 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -48,7 +48,9 @@ static bool	is_circular(t_data *data, t_path *path, t_node *node)
 {
   int		i;
 
-  if (node->nodes->size == 1 && node->id != data->end->id)
+  if (node->id != data->start->id &&
+      node->nodes->size == 1 &&
+      node->id != data->end->id)
     {
       fdisplay_format("warning: node '%s' belongs to a circular path"
 		      " (useless node).\n", node->label);
