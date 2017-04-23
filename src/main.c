@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Fri Apr 21 12:59:09 2017 Raphaël Goulmot
+** Last update Sun Apr 23 12:14:22 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -17,15 +17,15 @@
 static t_data	*initialize()
 {
   t_data	*data;
-
-  if (!(data = malloc(sizeof(t_data))))
+  
+  if (!(data = malloc(sizeof(t_data))) ||
+      !(data->nodes = list_create()) ||
+      !(data->crossers = list_create()) ||
+      !(data->paths = list_create()) ||
+      !(data->links = list_create()))
     return (NULL);
   data->start = NULL;
   data->end = NULL;
-  data->nodes = list_create();
-  data->crossers = list_create();
-  data->paths = list_create();
-  data->links = list_create();
   return (data);
 }
 
