@@ -5,6 +5,7 @@ Parser that handles warning and error messages.
  - Unknown parsed line
  - Circular paths (then showing useless nodes)
  - Fatal errors (no starting/ending node or w/o link)
+ - No valid path found
 
 Examples of use:  
 ```
