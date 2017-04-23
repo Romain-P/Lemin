@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Sun Apr 23 12:46:34 2017 romain pillot
+** Last update Sun Apr 23 13:46:34 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -23,15 +23,7 @@ static bool	valid_data(t_data *data)
 	      "error: undefined crossers number.\n", true);
       return (false);
     }
-  if (!data->start->nodes->size)
-    fdisplay_format("error: starting node '%s' hasn't any link.\n",
-		    data->start->label);
-  else if (!data->end->nodes->size)
-    fdisplay_format("error: ending node '%s' hasn't any link.\n",
-		    data->end->label);
-  else
-    return (true);
-  return (false);
+  return (true);
 }
 
 bool	load_data(t_data *data, int fd)

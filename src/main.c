@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Sun Apr 23 12:46:22 2017 romain pillot
+** Last update Sun Apr 23 13:18:39 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -74,7 +74,9 @@ static int	get_file(char **args, int *file)
 {
   *file = 0;
   if (args[1] && (*file = open(args[1], O_RDONLY)) == -1)
-    fdisplay_format("%s: can't open the file '%s'\n", args[0], args[1]);
+    fdisplay_format("warning: can't open the file '%s'"
+		    "(reads now on default input)\n",
+		    args[1]);
   return (*file == -1 ? (*file = 0) : *file);
 }
 

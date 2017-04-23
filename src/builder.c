@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Sun Apr 23 12:45:45 2017 romain pillot
+** Last update Sun Apr 23 12:51:59 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -24,7 +24,8 @@ bool		build_crossers(t_data *data, char *str)
   id = 0;
   while (crossers--)
     {
-      crosser = malloc(sizeof(t_crosser));
+      if (!(crosser = malloc(sizeof(t_crosser))))
+	return (false);
       crosser->id = ++id;
       crosser->path = NULL;
       crosser->step = 0;
