@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Sun Apr 23 13:18:39 2017 romain pillot
+** Last update Sun Apr 23 14:41:32 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -91,7 +91,6 @@ int		main(int ac, char **args)
       !build_paths(data))
     return (free_all(data, fd, EXIT_FAIL));
   display_data(data);
-  display_format("number: %d", data->paths->size);
   //launch_lemin(data);
   return (free_all(data, fd, EXIT_SUCCESS));
 }
