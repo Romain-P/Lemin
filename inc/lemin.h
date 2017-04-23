@@ -5,14 +5,14 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Sun Apr 23 11:35:51 2017 romain pillot
+** Last update Sun Apr 23 12:51:00 2017 romain pillot
 */
 
 #ifndef LEMIN_H_
 # define LEMIN_H_
 
-# include "list.h"
 # include <stdbool.h>
+# include "list.h"
 
 # define EXIT_FAIL      (84)
 

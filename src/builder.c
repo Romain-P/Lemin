@@ -5,12 +5,12 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Sun Apr 23 12:15:10 2017 romain pillot
+** Last update Sun Apr 23 12:45:45 2017 romain pillot
 */
 
-#include "lemin.h"
 #include <stdlib.h>
 #include "util.h"
+#include "lemin.h"
 
 bool		build_crossers(t_data *data, char *str)
 {

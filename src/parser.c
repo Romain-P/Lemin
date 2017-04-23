@@ -5,12 +5,12 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Sat Apr 22 17:56:14 2017 romain pillot
+** Last update Sun Apr 23 12:46:34 2017 romain pillot
 */
 
+#include <stdlib.h>
 #include "lemin.h"
 #include "util.h"
-#include <stdlib.h>
 
 static bool	valid_data(t_data *data)
 {

@@ -5,11 +5,11 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Wed Mar 15 09:14:24 2017 romain pillot
-** Last update Fri Apr 21 08:47:23 2017 romain pillot
+** Last update Sun Apr 23 12:50:04 2017 romain pillot
 */
 
-#include "util.h"
 #include <stdlib.h>
+#include "util.h"
 
 char    *fillstr(char *str, char c, int bytes)
 {

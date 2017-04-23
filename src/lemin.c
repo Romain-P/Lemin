@@ -5,12 +5,12 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Fri Apr 21 12:58:06 2017 Raphaël Goulmot
+** Last update Sun Apr 23 12:46:01 2017 romain pillot
 */
 
+#include <stdbool.h>
 #include "util.h"
 #include "lemin.h"
-#include <stdbool.h>
 
 static char	possible_path(t_path *path, t_data *world)
 {

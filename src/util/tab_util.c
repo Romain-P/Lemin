@@ -5,12 +5,12 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Wed Mar  8 13:58:37 2017 romain pillot
-** Last update Sun Apr  2 14:17:50 2017 Antonin Rapini
+** Last update Sun Apr 23 12:50:14 2017 romain pillot
 */
 
-#include "util.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include "util.h"
 
 int	tab_length(char **tab)
 {

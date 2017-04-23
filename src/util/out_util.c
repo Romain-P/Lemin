@@ -5,13 +5,13 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Tue Feb  7 14:39:21 2017 romain pillot
-** Last update Mon Mar 13 04:42:50 2017 romain pillot
+** Last update Sun Apr 23 12:48:24 2017 romain pillot
 */
 
-#include "util.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include "util.h"
 
 int	str_length(char *str)
 {

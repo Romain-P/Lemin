@@ -5,12 +5,12 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Wed Mar  8 10:25:12 2017 romain pillot
-** Last update Sun Apr  2 14:19:29 2017 Antonin Rapini
+** Last update Sun Apr 23 12:49:52 2017 romain pillot
 */
 
 #include <stdbool.h>
-#include "util.h"
 #include <stdlib.h>
+#include "util.h"
 
 bool	start_withstr(char *str, char *charset)
 {

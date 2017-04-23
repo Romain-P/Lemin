@@ -5,11 +5,11 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Mar  9 15:55:33 2017 romain pillot
-** Last update Thu Mar 16 10:39:01 2017 romain pillot
+** Last update Sun Apr 23 12:50:26 2017 romain pillot
 */
 
-#include "util.h"
 #include <stdlib.h>
+#include "util.h"
 
 bool	safe_free(void *ptr)
 {

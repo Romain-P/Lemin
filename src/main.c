@@ -5,14 +5,14 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Sun Apr 23 12:14:22 2017 romain pillot
+** Last update Sun Apr 23 12:46:22 2017 romain pillot
 */
 
 #include <stdlib.h>
-#include "util.h"
-#include "lemin.h"
 #include <fcntl.h>
 #include <unistd.h>
+#include "util.h"
+#include "lemin.h"
 
 static t_data	*initialize()
 {
@@ -85,9 +85,11 @@ int		main(int ac, char **args)
 
   (void) ac;
   if (!(data = initialize()) ||
-      !load_data(data, get_file(args, &fd)))
+      !load_data(data, get_file(args, &fd)) ||
+      !build_paths(data))
     return (free_all(data, fd, EXIT_FAIL));
   display_data(data);
+  display_format("number: %d", data->paths->size);
   //launch_lemin(data);
   return (free_all(data, fd, EXIT_SUCCESS));
 }
