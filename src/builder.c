@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Fri Apr 21 13:06:48 2017 romain pillot
+** Last update Sun Apr 23 11:47:54 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -53,13 +53,13 @@ static bool	insert_node(t_data *data, char *label, int posx, int posy)
 	}
       elem = elem->next;
     }
-  node = malloc(sizeof(t_node));
+  if (!(node = malloc(sizeof(t_node))))
+    return (false);
   node->label = label;
   node->posx = posx;
   node->posy = posy;
-  node->nodes = list_create();
-  list_add(data->nodes, node);
-  return (true);
+  list_add(data->nodes, (node->nodes = list_create()));
+  return ((node->id = data->nodes->size));
 }
 
 bool	build_node(t_data *data, char *str, char node_type)
@@ -121,7 +121,8 @@ bool		build_link(t_data *data, char *str)
     fdisplay_format("warning: ignored link '%s' (already built).\n", str);
   else if (len >= 2)
     {
-      link = malloc(sizeof(t_link));
+      if (!(link = malloc(sizeof(t_link))))
+	return (false);
       link->node_a = node_a;
       link->node_b = node_b;
       list_add(data->links, link);

@@ -1,13 +1,3 @@
-##
-## Makefile for  in /home/romain.pillot/projects/CPE_2016_Lemin
-## 
-## Made by romain pillot
-## Login   <romain.pillot@epitech.net>
-## 
-## Started on  Fri Apr 21 07:37:34 2017 romain pillot
-## Last update Fri Apr 21 07:37:59 2017 romain pillot
-##
-
 CC	=	gcc
 
 NAME	=	lem_in
@@ -19,6 +9,7 @@ SRCS	=	src/main.c			\
 		src/builder.c			\
 		src/lemin.c			\
 		src/display.c			\
+		src/path.c			\
 		src/util/list.c			\
 		src/util/nbr_util.c		\
 		src/util/out_util.c		\

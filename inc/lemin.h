@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Sat Apr 22 18:05:50 2017 romain pillot
+** Last update Sun Apr 23 11:35:51 2017 romain pillot
 */
 
 #ifndef LEMIN_H_
@@ -23,6 +23,7 @@
 
 typedef struct  s_node
 {
+  int		id;
   char          *label;
   int           posx;
   int           posy;
@@ -71,7 +72,7 @@ bool	build_link(t_data *data, char *str);
 void	display_data(t_data *data);
 
 /* path */
-void	build_paths(t_data *data);
+bool	build_paths(t_data *data);
 
 /* launching */
 void	launch_lemin(t_data *world);

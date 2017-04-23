@@ -5,36 +5,79 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Fri Apr 21 13:02:17 2017 romain pillot
-** Last update Sun Apr 23 07:45:33 2017 romain pillot
+** Last update Sun Apr 23 11:36:03 2017 romain pillot
 */
 
-static t_path	*create_path()
-{
-  t_path	*path;
-
-  path = malloc(sizeof(t_path));
-  path->nodes = NULL;
-  path->size = 0;
-  return (path);
-}
+#include <stdlib.h>
+#include "lemin.h"
+#include "util.h"
 
 static void	add_node(t_path *path, t_node *node)
 {
   t_node	**nodes;
   int		i;
 
-  nodes = malloc(sizeof(t_node) * (path->size + 1));
+  nodes = malloc(sizeof(t_node *) * (path->size + 1));
   i = -1;
   while (++i < path->size)
     nodes[i] = path->nodes[i];
   nodes[i] = node;
-  free(path->nodes);
+  safe_free(path->nodes);
   path->nodes = nodes;
   path->size++;
 }
 
+static t_path	*copy_path(t_path *model)
+{
+  t_path	*path;
+  int		i;
+
+  path = malloc(sizeof(t_path));
+  path->size = model->size;
+  path->nodes = malloc(sizeof(t_node *) * path->size);
+  i = -1;
+  while (++i < path->size)
+    path->nodes[i] = model->nodes[i];
+  return (path);
+}
+
+static void	find_paths(t_data *data, t_node *node, t_path *path)
+{
+  int		i;
+  t_path	*cpy;
+  t_elem	*elem;
+
+  i = -1;
+  while (++i < path->size)
+    if (path->nodes[i]->id == node->id)
+      return ;
+  add_node((cpy = copy_path(path)), node);
+  if (node->id == data->end->id)
+    {
+      list_add(data->paths, cpy);
+      return ;
+    }
+  elem = node->nodes->first;
+  while (elem)
+    {
+      find_paths(data, (t_node *) elem->get, cpy);
+      elem = elem->next;
+    }
+  free(cpy->nodes);
+  free(cpy);
+}
+
 bool		build_paths(t_data *data)
 {
-  
-  return (true);
+  t_path        *path;
+
+  path = malloc(sizeof(t_path));
+  path->nodes = NULL;
+  path->size = 0;
+  find_paths(data, data->start, path);
+  free(path->nodes);
+  free(path);
+  if (!data->paths->size)
+    display("error: no valid path found.", true);
+  return (data->paths->size);
 }
