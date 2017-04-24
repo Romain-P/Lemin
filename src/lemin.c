@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Mon Apr 24 18:26:10 2017 Raphaël Goulmot
+** Last update Mon Apr 24 21:37:54 2017 Raphaël Goulmot
 */
 
 #include <stdbool.h>
@@ -20,18 +20,16 @@ static char	possible_path(t_path *path, t_data *world, int index)
   char		check;
 
   elem = world->crossers->first;
-  while ((check = 1) && elem && (crosser = (t_crosser *)elem->get))
+  while ((check = 1) && elem && (crosser = (t_crosser *) elem->get))
     {
       elem = elem->next;
-      if (!crosser->path || (crosser->step > 0
-	 && crosser->path->nodes[crosser->step] == world->end))
+      if (!crosser->path || (crosser->step > 0 && crosser->path->nodes[crosser->step] == world->end))
 	continue;
       i = 1;
-      while (check && i < crosser->step * -1 + crosser->path->size - index - 1)
+      while (check && i < crosser->step * -1 + crosser->path->size - 1)
 	{
-	  if (path->size < i
-	      || crosser->path->nodes[index -
-		(crosser->step * -1) + i] == path->nodes[i])
+	  if (crosser->step + i > 0 && -index + i > 0
+	      && crosser->path->nodes[crosser->step + i]->id == path->nodes[-index + i]->id)
 	    check = 0;
 	  i++;
 	}
@@ -55,11 +53,11 @@ static void	init_path(t_crosser *crosser, t_data *world, int max)
     {
       while (i < max && ++i)
 	{
-	  if ((min == -1 || min > current->size + i - 1)
+	  if ((min == -1 || min > current->size + (i - 1))
 	      && possible_path(current, world, i - 1)
 	      && (send = current))
 	    min = current->size + (i - 1);
-	}
+	 }
       elem = elem->next;
     }
   if (min && send)

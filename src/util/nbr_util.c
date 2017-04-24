@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Fri Oct  7 21:03:32 2016 romain pillot
-** Last update Fri Apr 21 09:13:46 2017 romain pillot
+** Last update Mon Apr 24 20:29:40 2017 Raphaël Goulmot
 */
 
 #include <stdbool.h>
@@ -40,20 +40,10 @@ int     getnbr(char *str)
 
 void	putnbr(int nbr, bool err)
 {
-  int	i;
-
-  if (nbr == 0)
-    {
-      display_char('0', err);
-      return;
-    }
-  i = 1;
-  while (i <= nbr)
-    i *= 10;
-  i /= 10;
-  while (i > 0)
-    {
-      display_char((nbr / i % 10) + '0', err);
-      i /= 10;
-    }
+  if (nbr < 0)
+    display_char('-', err);
+  nbr = nbr < 0 ? nbr * -1 : nbr;
+  if (nbr > 9)
+    putnbr(nbr / 10, err);
+  display_char(nbr % 10 + 48, err);
 }
