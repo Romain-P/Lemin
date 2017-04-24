@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Sun Apr 23 12:51:00 2017 romain pillot
+** Last update Mon Apr 24 08:59:13 2017 romain pillot
 */
 
 #ifndef LEMIN_H_
@@ -28,6 +28,7 @@ typedef struct  s_node
   int           posx;
   int           posy;
   t_list	*nodes;
+  bool		locked;
 }               t_node;
 
 typedef struct	s_path
