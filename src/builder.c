@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Mon Apr 24 09:05:12 2017 romain pillot
+** Last update Mon Apr 24 10:22:27 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -55,7 +55,7 @@ static bool	insert_node(t_data *data, char *label, int posx, int posy)
       elem = elem->next;
     }
   if (!(node = malloc(sizeof(t_node))) || !(node->nodes = list_create()))
-    return ((node->locked = false));
+    return (node ? (node->locked = (node->used = false)) : false);
   node->label = label;
   node->posx = posx;
   node->posy = posy;

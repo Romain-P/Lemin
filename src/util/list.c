@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Mar 30 11:47:58 2017 romain pillot
-** Last update Sun Apr 23 12:46:55 2017 romain pillot
+** Last update Mon Apr 24 11:31:49 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -15,7 +15,8 @@ t_list		*list_create()
 {
   t_list	*list;
 
-  list = malloc(sizeof(t_list));
+  if (!(list = malloc(sizeof(t_list))))
+    return (NULL);
   list->size = 0;
   list->first = NULL;
   list->last = NULL;
@@ -26,7 +27,8 @@ t_elem		*list_add(t_list *list, void *data)
 {
   t_elem	*elem;
 
-  elem = malloc(sizeof(t_elem));
+  if (!(elem = malloc(sizeof(t_elem))))
+    return (NULL);
   elem->get = data;
   elem->next = NULL;
   elem->previous = list->last;
