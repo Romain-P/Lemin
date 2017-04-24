@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Mon Apr 24 13:52:24 2017 romain pillot
-** Last update Mon Apr 24 13:52:26 2017 romain pillot
+** Last update Mon Apr 24 18:08:10 2017 Raphaël Goulmot
 */
 
 #include <stdlib.h>
@@ -93,5 +93,6 @@ int		main(int ac, char **args)
   display_warnings(data);
   sort_paths(data->paths);
   display_data(data);
+  launch_lemin(data);
   return (free_all(data, fd, EXIT_SUCCESS));
 }

@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Mon Apr 24 17:26:07 2017 Raphaël Goulmot
+** Last update Mon Apr 24 18:26:10 2017 Raphaël Goulmot
 */
 
 #include <stdbool.h>
@@ -26,7 +26,7 @@ static char	possible_path(t_path *path, t_data *world, int index)
       if (!crosser->path || (crosser->step > 0
 	 && crosser->path->nodes[crosser->step] == world->end))
 	continue;
-      i = 0;
+      i = 1;
       while (check && i < crosser->step * -1 + crosser->path->size - index - 1)
 	{
 	  if (path->size < i
@@ -49,19 +49,18 @@ static void	init_path(t_crosser *crosser, t_data *world, int max)
   int		i;
   int		min;
 
-  i = 0;
   min = -1;
-  while (i < max && ++i)
+  elem = world->paths->first;
+  while (elem && (current = (t_path *)elem->get) && !(i = 0))
     {
-      elem = world->paths->first;
-      while (elem && (current = (t_path *)elem->get))
+      while (i < max && ++i)
 	{
 	  if ((min == -1 || min > current->size + i - 1)
 	      && possible_path(current, world, i - 1)
 	      && (send = current))
 	    min = current->size + (i - 1);
-	  elem = elem->next;
 	}
+      elem = elem->next;
     }
   if (min && send)
     {
