@@ -5,7 +5,7 @@
 ## Login   <romain.pillot@epitech.net>
 ## 
 ## Started on  Mon Apr 24 08:47:01 2017 romain pillot
-## Last update Mon Apr 24 19:06:19 2017 romain pillot
+## Last update Mon Apr 24 18:47:55 2017 romain pillot
 ##
 
 CC	=	gcc
@@ -15,12 +15,13 @@ NAME	=	lem_in
 RM	=	rm -f
 
 SRCS	=	src/main.c			\
+		src/gui.c			\
 		src/parser.c			\
 		src/builder.c			\
 		src/lemin.c			\
 		src/display.c			\
 		src/path_finder.c		\
-		src/path_util.c			\
+		src/path_handler.c		\
 		src/util/list.c			\
 		src/util/nbr_util.c		\
 		src/util/out_util.c		\
@@ -33,7 +34,7 @@ SRCS	=	src/main.c			\
 
 OBJS	=	$(SRCS:.c=.o)
 
-CFLAGS	+=	-Iinc -g3 -Wall -Werror -Wextra -pedantic
+CFLAGS	+=	-Iinc -lncurses
 
 all:	$(NAME)
 
