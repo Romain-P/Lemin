@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Mon Apr 24 17:10:28 2017 Raphaël Goulmot
+** Last update Mon Apr 24 17:26:07 2017 Raphaël Goulmot
 */
 
 #include <stdbool.h>
@@ -19,19 +19,19 @@ static char	possible_path(t_path *path, t_data *world, int index)
   int		i;
   char		check;
 
-  check = 1;
   elem = world->crossers->first;
-  while (elem && (crosser = (t_crosser *)elem->get))
+  while ((check = 1) && elem && (crosser = (t_crosser *)elem->get))
     {
       elem = elem->next;
-      if (!crosser->path || crosser->path->nodes[crosser->step] == world->end)
+      if (!crosser->path || (crosser->step > 0
+	 && crosser->path->nodes[crosser->step] == world->end))
 	continue;
       i = 0;
-      check = 1;
       while (check && i < crosser->step * -1 + crosser->path->size - index - 1)
 	{
 	  if (path->size < i
-	      || crosser->path->nodes[index - (crosser->step * -1) + i] == path->nodes[i])
+	      || crosser->path->nodes[index -
+		(crosser->step * -1) + i] == path->nodes[i])
 	    check = 0;
 	  i++;
 	}
@@ -107,16 +107,16 @@ void	launch_lemin(t_data *world)
   while (end_crossers != world->crossers->size)
     {
       elem = world->crossers->first;
-      while (elem)
+      while (elem && (crosser = (t_crosser *)elem->get))
 	{
-	  crosser = (t_crosser *) elem->get;
-	  if (crosser->path && crosser->path->nodes[crosser->step] != world->end)
+	  if (crosser->path && (crosser->step < 0
+	    || crosser->path->nodes[crosser->step] != world->end))
 	    {
 	      crosser->step++;
 	      if (crosser->step > 0)
 		display_format("P%d-%s ", crosser->id
 			       , crosser->path->nodes[crosser->step]->label);
-	      if (crosser->path->nodes[crosser->step] == world->end)
+	      if (crosser->step > 0 && crosser->path->nodes[crosser->step] == world->end)
 		end_crossers++;
 	    }
 	  elem = elem->next;
