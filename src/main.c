@@ -1,11 +1,11 @@
 /*
-** main.c for  in /home/romain.pillot/projects/CPE_2016_Lemin/src
+** main.c for  in /home/romain.pillot/projects/CPE_2016_Lemin
 ** 
 ** Made by romain pillot
 ** Login   <romain.pillot@epitech.net>
 ** 
-** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Mon Apr 24 13:38:20 2017 romain pillot
+** Started on  Mon Apr 24 13:52:24 2017 romain pillot
+** Last update Mon Apr 24 13:52:26 2017 romain pillot
 */
 
 #include <stdlib.h>

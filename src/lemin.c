@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Sun Apr 23 12:46:01 2017 romain pillot
+** Last update Mon Apr 24 15:50:31 2017 Raphaël Goulmot
 */
 
 #include <stdbool.h>
