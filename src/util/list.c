@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Mar 30 11:47:58 2017 romain pillot
-** Last update Mon Apr 24 11:31:49 2017 romain pillot
+** Last update Mon Apr 24 14:44:58 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -59,7 +59,7 @@ void		*list_dremove(t_list *list, void **data)
 
 void		*list_eremove(t_list *list, t_elem *elem)
 {
-  char		*data;
+  void		*data;
 
   if (elem->previous)
     elem->previous->next = elem->next;
