@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:14:37 2017 romain pillot
-** Last update Sun Apr 23 14:41:32 2017 romain pillot
+** Last update Mon Apr 24 08:46:10 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -17,7 +17,7 @@
 static t_data	*initialize()
 {
   t_data	*data;
-  
+
   if (!(data = malloc(sizeof(t_data))) ||
       !(data->nodes = list_create()) ||
       !(data->crossers = list_create()) ||
@@ -91,6 +91,5 @@ int		main(int ac, char **args)
       !build_paths(data))
     return (free_all(data, fd, EXIT_FAIL));
   display_data(data);
-  //launch_lemin(data);
   return (free_all(data, fd, EXIT_SUCCESS));
 }
