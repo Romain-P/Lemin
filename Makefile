@@ -5,7 +5,7 @@
 ## Login   <romain.pillot@epitech.net>
 ## 
 ## Started on  Mon Apr 24 08:47:01 2017 romain pillot
-## Last update Mon Apr 24 10:15:37 2017 romain pillot
+## Last update Mon Apr 24 17:11:52 2017 Raphaël Goulmot
 ##
 
 CC	=	gcc
@@ -33,7 +33,7 @@ SRCS	=	src/main.c			\
 
 OBJS	=	$(SRCS:.c=.o)
 
-CFLAGS	+=	-Iinc -g3 -Werror -Wall -Wextra -pedantic
+CFLAGS	+=	-Iinc -g3 -Wall -Werror -Wextra -pedantic
 
 all:	$(NAME)
 
