@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Mon Apr 24 12:56:10 2017 romain pillot
+** Last update Mon Apr 24 14:55:24 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -55,12 +55,12 @@ static bool	insert_node(t_data *data, char *label, int posx, int posy)
       elem = elem->next;
     }
   if (!(node = malloc(sizeof(t_node))) || !(node->nodes = list_create()))
-    return (node ? (node->used = false) : false);
+    return (false);
   node->label = label;
   node->posx = posx;
   node->posy = posy;
   list_add(data->nodes, node);
-  return ((node->id = data->nodes->size));
+  return (!(node->used = false) && (node->id = data->nodes->size));
 }
 
 bool	build_node(t_data *data, char *str, char node_type)

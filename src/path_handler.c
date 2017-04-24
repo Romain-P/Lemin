@@ -5,23 +5,34 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Mon Apr 24 10:15:07 2017 romain pillot
-** Last update Mon Apr 24 13:36:15 2017 romain pillot
+** Last update Mon Apr 24 15:28:30 2017 romain pillot
 */
 
 #include "lemin.h"
 #include "util.h"
+#include <stdlib.h>
 
-void		sort_paths(t_list *paths)
+void		sort_paths(t_data *data)
 {
   t_elem	*elem;
-  
-  elem = paths->first;
-  while (elem)
+  t_list	*sort;
+  t_elem	*lower;
+
+  sort = list_create();
+  while (data->paths->size)
     {
-      
-      elem = elem->next;
+      elem = data->paths->first;
+      lower = NULL;
+      while (elem)
+	{
+	  if (!lower || ((t_path *) lower->get)->size > ((t_path *) elem->get)->size)
+	    lower = elem;
+	  elem = elem->next;
+	}
+      list_add(sort, list_eremove(data->paths, lower));
     }
-  paths = paths;
+  free(data->paths);
+  data->paths = sort;
 }
 
 void		display_warnings(t_data *data)

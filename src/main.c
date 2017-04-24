@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Mon Apr 24 13:52:24 2017 romain pillot
-** Last update Mon Apr 24 13:52:26 2017 romain pillot
+** Last update Mon Apr 24 16:33:42 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -91,7 +91,7 @@ int		main(int ac, char **args)
       !build_paths(data))
     return (free_all(data, fd, EXIT_FAIL));
   display_warnings(data);
-  sort_paths(data->paths);
+  sort_paths(data);
   display_data(data);
   return (free_all(data, fd, EXIT_SUCCESS));
 }
