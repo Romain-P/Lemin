@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Mon Apr 24 14:55:24 2017 romain pillot
+** Last update Tue Apr 25 15:41:36 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -72,13 +72,12 @@ bool	build_node(t_data *data, char *str, char node_type)
   int	len;
 
   split = splitstr(strdupl(str), ' ');
-  label = NULL;
-  if ((len = tab_length(split)) >= 3 &&
-      (posx = getnbr(split[1])) >= 0 &&
-      (posy = getnbr(split[2])) >= 0)
-    label = strdupl(split[0]);
+  len = tab_length(split);
+  label = len >= 3 ? strdupl(split[0]) : NULL;
+  posx = len >= 3 ? getnbr(split[1]) : 0;
+  posy = len >= 3 ? getnbr(split[2]) : 0;
   safe_freesub(split, true);
-  if (len < 3 || !label || !insert_node(data, label, posx, posy))
+  if (len < 3 || !insert_node(data, label, posx, posy))
     {
       safe_free(label);
       return (false);
