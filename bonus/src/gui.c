@@ -5,19 +5,24 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Mon Apr 24 18:11:34 2017 romain pillot
-** Last update Mon Apr 24 18:50:09 2017 romain pillot
+** Last update Mon Apr 24 19:25:09 2017 romain pillot
 */
 
-#include <ncurses.h>
 #include <stdbool.h>
 #include "lemin.h"
 
-void	display_gui(t_data *data)
+static void	display_nodes(t_data *data)
+{
+  
+}
+
+void		display_gui(t_data *data)
 {
   initscr();
+  curs_set(0);
   while (true)
     {
-      mvprintw(10, 10, "hello");
+      display_nodes(data);
       refresh();
     }
 }

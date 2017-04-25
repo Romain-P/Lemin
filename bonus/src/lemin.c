@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Mon Apr 24 17:26:07 2017 Raphaël Goulmot
+** Last update Tue Apr 25 13:31:24 2017 romain pillot
 */
 
 #include <stdbool.h>
@@ -114,7 +114,7 @@ void	launch_lemin(t_data *world)
 	    {
 	      crosser->step++;
 	      if (crosser->step > 0)
-		display_format("P%d-%s ", crosser->id
+		display_format("P%d-%s", crosser->id
 			       , crosser->path->nodes[crosser->step]->label);
 	      if (crosser->step > 0 && crosser->path->nodes[crosser->step] == world->end)
 		end_crossers++;

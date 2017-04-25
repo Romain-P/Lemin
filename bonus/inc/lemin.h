@@ -5,16 +5,19 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Mon Apr 24 18:48:55 2017 romain pillot
+** Last update Mon Apr 24 19:22:39 2017 romain pillot
 */
 
 #ifndef LEMIN_H_
 # define LEMIN_H_
 
 # include <stdbool.h>
+# include <ncurses.h>
 # include "list.h"
 
 # define EXIT_FAIL      (84)
+# define Y		(LINES/2)
+# define X		(COLS/2)
 
 /* parsing node types */
 # define NODE_START	(0)
