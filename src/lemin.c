@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Mon Apr 24 21:37:54 2017 Raphaël Goulmot
+** Last update Wed Apr 26 16:34:41 2017 Raphaël Goulmot
 */
 
 #include <stdbool.h>
@@ -23,13 +23,14 @@ static char	possible_path(t_path *path, t_data *world, int index)
   while ((check = 1) && elem && (crosser = (t_crosser *) elem->get))
     {
       elem = elem->next;
-      if (!crosser->path || (crosser->step > 0 && crosser->path->nodes[crosser->step] == world->end))
+      if (!crosser->path || (crosser->step > 0
+			 && crosser->path->nodes[crosser->step] == world->end))
 	continue;
       i = 1;
       while (check && i < crosser->step * -1 + crosser->path->size - 1)
 	{
 	  if (crosser->step + i > 0 && -index + i > 0
-	      && crosser->path->nodes[crosser->step + i]->id == path->nodes[-index + i]->id)
+	  && crosser->path->nodes[crosser->step + i] == path->nodes[-index + i])
 	    check = 0;
 	  i++;
 	}
@@ -67,7 +68,7 @@ static void	init_path(t_crosser *crosser, t_data *world, int max)
     }
 }
 
-static void	init_crossers(t_data *world)
+static void	init_crossers(t_data *world, int *end_crossers)
 {
   t_elem	*elem;
   t_crosser	*crosser;
@@ -91,6 +92,7 @@ static void	init_crossers(t_data *world)
 	}
       elem = elem->next;
     }
+  *end_crossers = 0;
 }
 
 void	launch_lemin(t_data *world)
@@ -98,23 +100,23 @@ void	launch_lemin(t_data *world)
   t_elem	*elem;
   t_crosser	*crosser;
   int		end_crossers;
+  int		counter;
 
-  init_crossers(world);
-  end_crossers = 0;
-  while (end_crossers != world->crossers->size)
+  init_crossers(world, &end_crossers);
+  while (end_crossers != world->crossers->size && !(counter = 0))
     {
       elem = world->crossers->first;
       while (elem && (crosser = (t_crosser *)elem->get))
 	{
 	  if (crosser->path && (crosser->step < 0
-	    || crosser->path->nodes[crosser->step] != world->end))
+     || crosser->path->nodes[crosser->step] != world->end) && ++crosser->step)
 	    {
-	      crosser->step++;
 	      if (crosser->step > 0)
-		display_format("P%d-%s ", crosser->id
-			       , crosser->path->nodes[crosser->step]->label);
-	      if (crosser->step > 0 && crosser->path->nodes[crosser->step] == world->end)
-		end_crossers++;
+		display_format("%cP%d-%s", counter ? ' ' : '\0', crosser->id
+	       , crosser->path->nodes[crosser->step]->label);
+	      end_crossers += crosser->step > 0
+		&& crosser->path->nodes[crosser->step] == world->end ? 1 : 0;
+	      counter++;
 	    }
 	  elem = elem->next;
 	}
