@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Wed Apr 26 16:34:41 2017 Raphaël Goulmot
+** Last update Wed Apr 26 16:51:51 2017 Raphaël Goulmot
 */
 
 #include <stdbool.h>
@@ -109,14 +109,14 @@ void	launch_lemin(t_data *world)
       while (elem && (crosser = (t_crosser *)elem->get))
 	{
 	  if (crosser->path && (crosser->step < 0
-     || crosser->path->nodes[crosser->step] != world->end) && ++crosser->step)
+     || crosser->path->nodes[crosser->step] != world->end)
+	      && ++crosser->step && crosser->step > 0 && ++counter)
 	    {
-	      if (crosser->step > 0)
-		display_format("%cP%d-%s", counter ? ' ' : '\0', crosser->id
-	       , crosser->path->nodes[crosser->step]->label);
-	      end_crossers += crosser->step > 0
-		&& crosser->path->nodes[crosser->step] == world->end ? 1 : 0;
-	      counter++;
+	      if (counter > 1)
+		display_format(" ");
+	      display_format("P%d-%s", crosser->id
+			     , crosser->path->nodes[crosser->step]->label);
+	      end_crossers += crosser->path->nodes[crosser->step] == world->end;
 	    }
 	  elem = elem->next;
 	}
