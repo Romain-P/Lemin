@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Tue Apr 25 13:31:24 2017 romain pillot
+** Last update Wed Apr 26 16:51:51 2017 Raphaël Goulmot
 */
 
 #include <stdbool.h>
@@ -20,18 +20,17 @@ static char	possible_path(t_path *path, t_data *world, int index)
   char		check;
 
   elem = world->crossers->first;
-  while ((check = 1) && elem && (crosser = (t_crosser *)elem->get))
+  while ((check = 1) && elem && (crosser = (t_crosser *) elem->get))
     {
       elem = elem->next;
       if (!crosser->path || (crosser->step > 0
-	 && crosser->path->nodes[crosser->step] == world->end))
+			 && crosser->path->nodes[crosser->step] == world->end))
 	continue;
-      i = 0;
-      while (check && i < crosser->step * -1 + crosser->path->size - index - 1)
+      i = 1;
+      while (check && i < crosser->step * -1 + crosser->path->size - 1)
 	{
-	  if (path->size < i
-	      || crosser->path->nodes[index -
-		(crosser->step * -1) + i] == path->nodes[i])
+	  if (crosser->step + i > 0 && -index + i > 0
+	  && crosser->path->nodes[crosser->step + i] == path->nodes[-index + i])
 	    check = 0;
 	  i++;
 	}
@@ -49,19 +48,18 @@ static void	init_path(t_crosser *crosser, t_data *world, int max)
   int		i;
   int		min;
 
-  i = 0;
   min = -1;
-  while (i < max && ++i)
+  elem = world->paths->first;
+  while (elem && (current = (t_path *)elem->get) && !(i = 0))
     {
-      elem = world->paths->first;
-      while (elem && (current = (t_path *)elem->get))
+      while (i < max && ++i)
 	{
-	  if ((min == -1 || min > current->size + i - 1)
+	  if ((min == -1 || min > current->size + (i - 1))
 	      && possible_path(current, world, i - 1)
 	      && (send = current))
 	    min = current->size + (i - 1);
-	  elem = elem->next;
-	}
+	 }
+      elem = elem->next;
     }
   if (min && send)
     {
@@ -70,7 +68,7 @@ static void	init_path(t_crosser *crosser, t_data *world, int max)
     }
 }
 
-static void	init_crossers(t_data *world)
+static void	init_crossers(t_data *world, int *end_crossers)
 {
   t_elem	*elem;
   t_crosser	*crosser;
@@ -94,6 +92,7 @@ static void	init_crossers(t_data *world)
 	}
       elem = elem->next;
     }
+  *end_crossers = 0;
 }
 
 void	launch_lemin(t_data *world)
@@ -101,23 +100,23 @@ void	launch_lemin(t_data *world)
   t_elem	*elem;
   t_crosser	*crosser;
   int		end_crossers;
+  int		counter;
 
-  init_crossers(world);
-  end_crossers = 0;
-  while (end_crossers != world->crossers->size)
+  init_crossers(world, &end_crossers);
+  while (end_crossers != world->crossers->size && !(counter = 0))
     {
       elem = world->crossers->first;
       while (elem && (crosser = (t_crosser *)elem->get))
 	{
 	  if (crosser->path && (crosser->step < 0
-	    || crosser->path->nodes[crosser->step] != world->end))
+     || crosser->path->nodes[crosser->step] != world->end)
+	      && ++crosser->step && crosser->step > 0 && ++counter)
 	    {
-	      crosser->step++;
-	      if (crosser->step > 0)
-		display_format("P%d-%s", crosser->id
-			       , crosser->path->nodes[crosser->step]->label);
-	      if (crosser->step > 0 && crosser->path->nodes[crosser->step] == world->end)
-		end_crossers++;
+	      if (counter > 1)
+		display_format(" ");
+	      display_format("P%d-%s", crosser->id
+			     , crosser->path->nodes[crosser->step]->label);
+	      end_crossers += crosser->path->nodes[crosser->step] == world->end;
 	    }
 	  elem = elem->next;
 	}

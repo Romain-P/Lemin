@@ -5,17 +5,29 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Mon Apr 24 18:11:34 2017 romain pillot
-** Last update Tue Apr 25 15:11:05 2017 romain pillot
+** Last update Wed Apr 26 15:27:22 2017 romain pillot
 */
 
 #include <stdbool.h>
 #include "lemin.h"
 
-static bool	sort_link(t_link *link)
+static bool	sort_linkx(t_link *link)
 {
   t_node	*swap;
 
   if (link->node_a->posx < link->node_b->posx)
+    return (true);
+  swap = link->node_a;
+  link->node_a = link->node_b;
+  link->node_b = swap;
+  return (true);
+}
+
+static bool	sort_linky(t_link *link)
+{
+  t_node	*swap;
+
+  if (link->node_a->posy < link->node_b->posy)
     return (true);
   swap = link->node_a;
   link->node_a = link->node_b;
@@ -28,14 +40,18 @@ static void	display_links(t_data *data)
   t_elem	*elem;
   t_link	*link;
   int		i;
+  int		j;
 
   elem = data->links->first;
-  while (elem && sort_link((link = (t_link *) elem->get)))
+  while (elem && sort_linkx((link = (t_link *) elem->get)))
     {
       i = 0;
       while (++i <= (link->node_b->posx - link->node_a->posx))
 	mvprintw(Y - link->node_a->posy, X + link->node_a->posx + i, ".");
-      
+      j = 0;
+      sort_linky(link);
+      while (++j < (link->node_b->posy - link->node_a->posy))
+	mvprintw(Y - link->node_a->posy - j, X + link->node_a->posx + i - 1, "|");
       elem = elem->next;
     }
 }
