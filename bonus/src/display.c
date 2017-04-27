@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Fri Apr 21 07:37:25 2017 romain pillot
-** Last update Fri Apr 21 12:35:36 2017 romain pillot
+** Last update Thu Apr 27 15:45:30 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -46,8 +46,14 @@ static void	display_links(t_list *links)
 
 void		display_data(t_data *data)
 {
-  display_format("#number_of_ants\n%d\n", data->crossers->size);
-  display_nodes(data);
-  display_links(data->links);
-  display("#moves\n", false);
+  bool		error;
+
+  if (!(error = !data->crossers->size))
+    display_format("#number_of_ants\n%d\n", data->crossers->size);
+  if (!error && !(error = !data->nodes->size))
+    display_nodes(data);
+  if (!error && !(error = !data->links->size))
+    display_links(data->links);
+  if (!error)
+    display("#moves\n", false);
 }

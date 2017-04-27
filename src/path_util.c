@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Mon Apr 24 10:15:07 2017 romain pillot
-** Last update Mon Apr 24 15:28:30 2017 romain pillot
+** Last update Thu Apr 27 15:49:13 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -44,8 +44,8 @@ void		display_warnings(t_data *data)
   while (elem)
     {
       node = (t_node *) elem->get;
-      if (node->id != data->start->id &&
-	  node->id != data->end->id &&
+      if (data->start && node->id != data->start->id &&
+	  data->end && node->id != data->end->id &&
 	  !node->used)
 	fdisplay_format("warning: node '%s' belongs to a circular path"
 			" (useless node).\n", node->label);

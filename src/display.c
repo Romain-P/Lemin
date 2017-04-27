@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Fri Apr 21 07:37:25 2017 romain pillot
-** Last update Fri Apr 21 12:35:36 2017 romain pillot
+** Last update Thu Apr 27 15:52:47 2017 romain pillot
 */
 
 #include "lemin.h"
@@ -21,9 +21,9 @@ static void	display_nodes(t_data *data)
   while (elem)
     {
       node = (t_node *) elem->get;
-      if (equalstr(node->label, data->start->label))
+      if (data->start && node->id == data->start->id)
 	display("##start\n", false);
-      else if (equalstr(node->label, data->end->label))
+      else if (data->end && node->id == data->end->id)
 	display("##end\n", false);
       display_format("%s %d %d\n", node->label, node->posx, node->posy);
       elem = elem->next;
@@ -44,10 +44,16 @@ static void	display_links(t_list *links)
     }
 }
 
-void		display_data(t_data *data)
+void		display_data(t_data *data, bool works)
 {
-  display_format("#number_of_ants\n%d\n", data->crossers->size);
-  display_nodes(data);
-  display_links(data->links);
-  display("#moves\n", false);
+  bool		error;
+
+  if (!(error = !data->crossers->size))
+    display_format("#number_of_ants\n%d\n", data->crossers->size);
+  if (!error && !(error = !data->nodes->size))
+    display_nodes(data);
+  if (!error && !(error = !data->links->size))
+    display_links(data->links);
+  if (works)
+    display("#moves\n", false);
 }

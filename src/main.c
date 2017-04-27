@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Mon Apr 24 13:52:24 2017 romain pillot
-** Last update Mon Apr 24 18:38:20 2017 Raphaël Goulmot
+** Last update Thu Apr 27 15:53:25 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -84,15 +84,17 @@ int		main(int ac, char **args)
 {
   t_data	*data;
   int		fd;
+  bool		error;
 
   (void) ac;
-  if (!(data = initialize()) ||
-      !load_data(data, get_file(args, &fd)) ||
-      !build_paths(data))
-    return (free_all(data, fd, EXIT_FAIL));
+  error = !(data = initialize()) ||
+    !load_data(data, get_file(args, &fd)) ||
+    !build_paths(data);
   display_warnings(data);
+  display_data(data, !error);
+  if (error)
+    return (free_all(data, fd, EXIT_FAIL));
   sort_paths(data);
-  display_data(data);
   launch_lemin(data);
   return (free_all(data, fd, EXIT_SUCCESS));
 }
