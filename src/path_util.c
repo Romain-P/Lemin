@@ -5,12 +5,12 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Mon Apr 24 10:15:07 2017 romain pillot
-** Last update Thu Apr 27 15:49:13 2017 romain pillot
+** Last update Thu Apr 27 16:03:28 2017 romain pillot
 */
 
+#include <stdlib.h>
 #include "lemin.h"
 #include "util.h"
-#include <stdlib.h>
 
 void		sort_paths(t_data *data)
 {
@@ -25,7 +25,8 @@ void		sort_paths(t_data *data)
       lower = NULL;
       while (elem)
 	{
-	  if (!lower || ((t_path *) lower->get)->size > ((t_path *) elem->get)->size)
+	  if (!lower ||
+	      ((t_path *) lower->get)->size > ((t_path *) elem->get)->size)
 	    lower = elem;
 	  elem = elem->next;
 	}
