@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Fri Apr 28 14:29:30 2017 romain pillot
+** Last update Fri Apr 28 15:09:47 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -26,6 +26,20 @@ static bool	valid_data(t_data *data)
   return (true);
 }
 
+static bool	already_defined(t_data *data, char node_type)
+{
+  bool		start;
+
+  if ((start = data->start && node_type == NODE_START) ||
+      (data->end && node_type == NODE_END))
+    {
+      fdisplay_format("error: %s node already defined.\n",
+		      start ? "starting" : "ending");
+      return (true);
+    }
+  return (false);
+}
+
 bool	load_data(t_data *data, int fd)
 {
   char	*str;
@@ -41,8 +55,9 @@ bool	load_data(t_data *data, int fd)
 	  free(str);
 	  continue;
 	}
-      if ((data->crossers->size || !build_crossers(data, str)) &&
-	  (!build_node(data, str, node_type) && !build_link(data, str)))
+      if (already_defined(data, node_type) ||
+	  ((data->crossers->size || !build_crossers(data, str)) &&
+	   (!build_node(data, str, node_type) && !build_link(data, str))))
 	{
 	  fdisplay_format("notice: '%s' stopped the parsing.\n", str);
 	  free(str);
