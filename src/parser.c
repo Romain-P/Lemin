@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Fri Apr 28 14:01:21 2017 romain pillot
+** Last update Fri Apr 28 14:29:30 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -42,7 +42,7 @@ bool	load_data(t_data *data, int fd)
 	  continue;
 	}
       if ((data->crossers->size || !build_crossers(data, str)) &&
-	  !build_node(data, str, node_type) && !build_link(data, str))
+	  (!build_node(data, str, node_type) && !build_link(data, str)))
 	{
 	  fdisplay_format("notice: '%s' stopped the parsing.\n", str);
 	  free(str);

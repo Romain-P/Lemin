@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Fri Apr 28 13:56:16 2017 romain pillot
+** Last update Fri Apr 28 14:38:43 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -15,12 +15,19 @@
 bool		build_crossers(t_data *data, char *str)
 {
   int		crossers;
+  char		**tab;
   t_crosser	*crosser;
   int		id;
 
-  if (containstr(str, " ") || containstr(str, "-") ||
-      (crossers = getnbr(str)) <= 0)
-    return (false);
+  tab = splitstr(strdupl(str), '#');
+  str = tab[0];
+  if ((crossers = getnbr(str)) <= 0)
+    {
+      display("error: invalid number of ants.\n", true);
+      safe_freesub(tab, true);
+      return (false);
+    }
+  safe_freesub(tab, true);
   id = 0;
   while (crossers--)
     {
@@ -120,17 +127,16 @@ bool		build_link(t_data *data, char *str)
   len = tab_length(split);
   node_a = len == 2 ? find_node(data->nodes, split[0], true) : NULL;
   node_b = len == 2 ? find_node(data->nodes, split[1], true) : NULL;
-  if (len == 2 && find_node(node_a->nodes, node_b->label, false))
+  if (len == 2 && node_a && node_b &&
+      find_node(node_a->nodes, node_b->label, false))
     fdisplay_format("warning: ignored link '%s' (already built).\n", str);
-  else if (len == 2)
+  else if (len == 2 && node_a && node_b)
     {
       if (!(link = malloc(sizeof(t_link))))
 	return (false);
-      link->node_a = node_a;
-      link->node_b = node_b;
       list_add(data->links, link);
-      list_add(node_a->nodes, node_b);
-      list_add(node_b->nodes, node_a);
+      list_add((link->node_a = node_a)->nodes, node_b);
+      list_add((link->node_b = node_b)->nodes, node_a);
       len = -1;
     }
   safe_freesub(split, true);
