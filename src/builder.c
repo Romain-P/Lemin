@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Fri Apr 28 14:39:22 2017 romain pillot
+** Last update Fri Apr 28 15:45:13 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -127,15 +127,20 @@ bool		build_link(t_data *data, char *str)
   len = tab_length(split);
   node_a = len == 2 ? find_node(data->nodes, split[0], true) : NULL;
   node_b = len == 2 ? find_node(data->nodes, split[1], true) : NULL;
-  if (len == 2 && node_a && node_b)
+  if (node_a->id != node_b->id && len == 2 && node_a && node_b)
     {
-      if (find_node(node_a->nodes, node_b->label, false))
-	fdisplay_format("warning: link '%s' (already built).\n", str);
       if (!(link = malloc(sizeof(t_link))))
 	return (false);
       list_add(data->links, link);
-      list_add((link->node_a = node_a)->nodes, node_b);
-      list_add((link->node_b = node_b)->nodes, node_a);
+      link->node_a = node_a;
+      link->node_b = node_b;
+      if (find_node(node_a->nodes, node_b->label, false))
+	fdisplay_format("warning: link '%s' (already built).\n", str);
+      else
+	{
+	  list_add(node_a->nodes, node_b);
+	  list_add(node_b->nodes, node_a);
+	}
       len = -1;
     }
   safe_freesub(split, true);
