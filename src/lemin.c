@@ -5,7 +5,7 @@
 ** Login   <raphael.goulmot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:43:48 2017 Raphaël Goulmot
-** Last update Wed Apr 26 15:29:30 2017 romain pillot
+** Last update Fri Apr 28 15:20:03 2017 Raphaël Goulmot
 */
 
 #include <stdbool.h>
@@ -20,11 +20,12 @@ static char	possible_path(t_path *path, t_data *world, int index)
   char		check;
 
   elem = world->crossers->first;
-  while ((check = 1) && elem && (crosser = (t_crosser *) elem->get))
+  check = 1;
+  while (check && elem && (crosser = (t_crosser *) elem->get) && crosser->path)
     {
       elem = elem->next;
-      if (!crosser->path || (crosser->step > 0
-			 && crosser->path->nodes[crosser->step] == world->end))
+      if (crosser->step > 0
+			 && crosser->path->nodes[crosser->step] == world->end)
 	continue;
       i = 1;
       while (check && i < crosser->step * -1 + crosser->path->size - 1)
@@ -34,13 +35,11 @@ static char	possible_path(t_path *path, t_data *world, int index)
 	    check = 0;
 	  i++;
 	}
-      if (!check)
-	return (0);
     }
-  return (1);
+  return (check);
 }
 
-static void	init_path(t_crosser *crosser, t_data *world, int max)
+static void	init_path(t_crosser *crosser, t_data *world, int max, int index)
 {
   t_elem	*elem;
   t_path	*send;
@@ -50,9 +49,10 @@ static void	init_path(t_crosser *crosser, t_data *world, int max)
 
   min = -1;
   elem = world->paths->first;
-  while (elem && (current = (t_path *)elem->get) && !(i = 0))
+  while (elem && (current = (t_path *)elem->get))
     {
-      while (i < max && ++i)
+      i = index < 0 ? 0 : index;
+      while (i < max + 1 && ++i)
 	{
 	  if ((min == -1 || min > current->size + (i - 1))
 	      && possible_path(current, world, i - 1)
@@ -74,21 +74,22 @@ static void	init_crossers(t_data *world, int *end_crossers)
   t_crosser	*crosser;
   int		max;
   int		value;
+  int		size;
 
-  max = 1;
+  max = 0;
+  size = 0;
   elem = world->crossers->first;
   while (elem)
     {
       crosser = (t_crosser *) elem->get;
       if (!crosser->path)
 	{
-	  init_path(crosser, world, max);
-	  if (crosser->path)
-	    {
-	      value = crosser->path->size + crosser->step * -1;
-	      if (value > max)
-		max = value;
-	    }
+	  init_path(crosser, world, max, max - size);
+	  value = crosser->path->size - crosser->step;
+	  if (value > max)
+	    max = value;
+	  if (crosser->path->size > size)
+	    size = crosser->path->size;
 	}
       elem = elem->next;
     }
