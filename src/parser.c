@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Fri Apr 28 15:09:47 2017 romain pillot
+** Last update Fri Apr 28 16:17:46 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -46,7 +46,7 @@ bool	load_data(t_data *data, int fd)
   char	node_type;
 
   node_type = NODE_NORMAL;
-  while ((str = scan_line(fd)))
+  while ((str = scan_line(fd)) != NULL && *str)
     {
       if (start_withstr(str, "#"))
 	{

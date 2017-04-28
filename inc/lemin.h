@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Thu Apr 27 15:53:48 2017 romain pillot
+** Last update Fri Apr 28 16:29:00 2017 romain pillot
 */
 
 #ifndef LEMIN_H_
@@ -68,6 +68,8 @@ bool	build_crossers(t_data *data, char *str);
 bool	build_node(t_data *data, char *str, char node_type);
 
 bool	build_link(t_data *data, char *str);
+
+t_link	*add_link(t_data *data, t_node *a, t_node *b);
 
 /* display */
 void	display_data(t_data *data, bool works);

@@ -1,0 +1,24 @@
+/*
+** link_builder.c for  in /home/romain.pillot/projects/CPE_2016_Lemin/src/util
+** 
+** Made by romain pillot
+** Login   <romain.pillot@epitech.net>
+** 
+** Started on  Fri Apr 28 16:25:29 2017 romain pillot
+** Last update Fri Apr 28 16:30:40 2017 romain pillot
+*/
+
+#include <stdlib.h>
+#include "lemin.h"
+
+t_link		*add_link(t_data *data, t_node *a, t_node *b)
+{
+  t_link	*link;
+
+  if (!(link = malloc(sizeof(t_link))))
+    return (NULL);
+  link->node_a = a;
+  link->node_b = b;
+  list_add(data->links, link);
+  return (link);
+}

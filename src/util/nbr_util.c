@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Fri Oct  7 21:03:32 2016 romain pillot
-** Last update Mon Apr 24 20:29:40 2017 Raphaël Goulmot
+** Last update Fri Apr 28 16:14:32 2017 romain pillot
 */
 
 #include <stdbool.h>
@@ -33,7 +33,7 @@ static int     my_getnbr_sub(char *str, int i, int n, int s)
 
 int     getnbr(char *str)
 {
-  if (str && *str == '0' && !(str[1]))
+  if (str && (*str == 0 || (*str == '0' && !(str[1]))))
     return (0);
   return (my_getnbr_sub(str, 0, 0, 1));
 }
