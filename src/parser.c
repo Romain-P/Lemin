@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 20:06:21 2017 romain pillot
-** Last update Sun Apr 23 13:46:34 2017 romain pillot
+** Last update Fri Apr 28 14:01:21 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -36,8 +36,8 @@ bool	load_data(t_data *data, int fd)
     {
       if (start_withstr(str, "#"))
 	{
-	  node_type = start_withstr(str, "##start") ? NODE_START :
-	    start_withstr(str, "##end") ? NODE_END : NODE_NORMAL;
+	  node_type = equalstr(trimstr(str, ' '), "##start") ? NODE_START :
+	    equalstr(trimstr(str, ' '), "##end") ? NODE_END : NODE_NORMAL;
 	  free(str);
 	  continue;
 	}

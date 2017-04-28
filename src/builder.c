@@ -5,7 +5,7 @@
 ** Login   <romain pillot@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 00:35:40 2017 romain pillot
-** Last update Tue Apr 25 15:40:51 2017 romain pillot
+** Last update Fri Apr 28 13:56:16 2017 romain pillot
 */
 
 #include <stdlib.h>
@@ -66,18 +66,21 @@ static bool	insert_node(t_data *data, char *label, int posx, int posy)
 bool	build_node(t_data *data, char *str, char node_type)
 {
   char	**split;
+  char	**comment;
   char	*label;
   int	posx;
   int	posy;
   int	len;
 
-  split = splitstr(strdupl(str), ' ');
+  comment = splitstr(strdupl(str), '#');
+  split = splitstr(comment[0], ' ');
   len = tab_length(split);
-  posx = len >= 3 ? getnbr(split[1]) : 0;
-  posy = len >= 3 ? getnbr(split[2]) : 0;
-  label = len >= 3 ? strdupl(split[0]) : NULL;
+  posx = len == 3 ? getnbr(split[1]) : 0;
+  posy = len == 3 ? getnbr(split[2]) : 0;
+  label = len == 3 ? strdupl(split[0]) : NULL;
   safe_freesub(split, true);
-  if (len < 3 || !insert_node(data, label, posx, posy))
+  free(comment);
+  if (len != 3 || !insert_node(data, label, posx, posy))
     {
       safe_free(label);
       return (false);
@@ -115,11 +118,11 @@ bool		build_link(t_data *data, char *str)
 
   split = splitstr(strdupl(str), '-');
   len = tab_length(split);
-  node_a = len >= 2 ? find_node(data->nodes, split[0], true) : NULL;
-  node_b = len >= 2 ? find_node(data->nodes, split[1], true) : NULL;
-  if (len >= 2 && find_node(node_a->nodes, node_b->label, false))
+  node_a = len == 2 ? find_node(data->nodes, split[0], true) : NULL;
+  node_b = len == 2 ? find_node(data->nodes, split[1], true) : NULL;
+  if (len == 2 && find_node(node_a->nodes, node_b->label, false))
     fdisplay_format("warning: ignored link '%s' (already built).\n", str);
-  else if (len >= 2)
+  else if (len == 2)
     {
       if (!(link = malloc(sizeof(t_link))))
 	return (false);
