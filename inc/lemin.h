@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Apr 20 17:46:54 2017 romain pillot
-** Last update Fri Apr 28 16:29:00 2017 romain pillot
+** Last update Fri Apr 28 16:38:32 2017 romain pillot
 */
 
 #ifndef LEMIN_H_
@@ -76,7 +76,9 @@ void	display_data(t_data *data, bool works);
 
 /* path */
 bool	build_paths(t_data *data);
+
 void	display_warnings(t_data *data);
+
 void	sort_paths(t_data *data);
 
 /* launching */
